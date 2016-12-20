@@ -50,7 +50,7 @@ class ProjectOverview extends Component {
     }
 
     renderList(items) {
-        if(undefined==items) return;
+        if(undefined==items || items=="") return;
         return items.map((item) => {
             return (
                 <li className="list-group-item11" key={item.id}>
@@ -84,7 +84,6 @@ class ProjectOverview extends Component {
    
     render() {
         const data = this.props.projectActivities;
-        console.info("datadatadata", data)
         return (
             <div>
                <ul className="list-group-activity">

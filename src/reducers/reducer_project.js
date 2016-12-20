@@ -27,7 +27,7 @@ const INITIAL_STATE = {
     tasklist : [],
     task : [],
     messages : [],
-    messages_current : [],
+    message : [],
     files : [],
     files_current : [],
     files_browser_form_list : [],
@@ -67,7 +67,7 @@ export default function(state = INITIAL_STATE, action) {
         case FETCH_PROJECT_MESSAGES:
             return {...state, messages: action.payload.data };    
         case FETCH_PROJECT_MESSAGE:
-            return {...state, messages_current: action.payload.data };
+            return {...state, message: action.payload.data };
         
         case FETCH_PROJECT_FILES:
             return {...state, files: action.payload.data };

@@ -112,14 +112,16 @@ a:hover {
 
 .btn-plain,
 .btn-plain:link,
-.btn-plain:hover,
 .btn-plain:focus,
 .btn-plain:active {
     background: none;
     text-decoration: none;
     outline: none;
-    padding: 0;
     box-shadow: none;
+    padding: 0px 10px;
+}
+.btn-plain:hover {
+    background: #f4f4f4;
 }
 
 .select-menu {
@@ -207,8 +209,10 @@ a:hover {
 .bootstrap-tagsinput-widthfull {
     .bootstrap-tagsinput {
         width: 100%;
+        height: auto;
         box-shadow: none;
         border-radius: 0;
+        padding: 0;
     }
 }
 
@@ -484,7 +488,7 @@ a:hover {
 
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     padding-bottom: 150px;
 }
 
@@ -607,8 +611,11 @@ body {
 
 
 .bootstrap-tagsinput {
+    min-width: 200px;
     input {
-        width: 100%;
+        width: 200px;
+        height: auto;
+        padding: 0;
         border: none;
     }
 
@@ -1555,10 +1562,10 @@ body {
     }
 }
 header {
-    -webkit-box-shadow: 0px 5px 15px 0px #c5c5c5;
+   /* -webkit-box-shadow: 0px 5px 15px 0px #c5c5c5;
     -moz-box-shadow: 0px 5px 15px 0px #c5c5c5;
     box-shadow: 0px 5px 15px 0px #c5c5c5;
-    
+    */
     position: fixed;
     top: 0;
     width: 100%;
@@ -1598,7 +1605,7 @@ header {
     width: 100%;
     margin: 0 auto;
     // overflow: auto;
-    padding-top: 75px;
+    padding-top: 52px;
     
     &.has-sidebar {
         padding-left: 300px;
@@ -1722,6 +1729,165 @@ header {
             margin-top: 125px;
             text-align: right;
             background-color: transparent;
+        }
+    }
+}
+
+
+
+
+.h2-light {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+
+.table-odrive {
+
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+
+    tbody {
+        tr:hover {
+            background-color: #eaeaea;
+        }
+    }
+
+    thead {
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    th {
+        padding: 8px;
+        font-size: 11px;
+        font-weight: normal;
+    }
+
+    td {
+        border: none;
+        padding: 8px;
+    }
+
+}
+
+
+.CommandBar {
+    background-color: #f4f4f4;
+
+    &:before {
+        display: table;
+        content: " ";
+    }
+    &:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+
+    .itemsArea {
+        float: left;
+    }
+
+    .farItemsArea {
+        float: right;
+    }
+}
+
+
+.CommandBarItem {
+    display: inline-block;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #333333;
+    height: 40px;
+    box-sizing: border-box;
+    outline: 0;
+    vertical-align: top;
+
+    button {
+        background: none;
+        border: none;
+        display: table;
+        padding: 10px;
+        color: #333333;
+        outline: none;
+
+        i {
+            padding-right: 8px;
+            color: #106ebe;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    &:hover {
+        background-color: #eaeaea;
+    }
+
+    .subMenu {
+        list-style: none;
+        padding: 0;
+        box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        min-width: 150px;
+        position: absolute;
+        display: none;
+
+        li {
+
+            a {
+                background-color: #ffffff;
+                cursor: pointer;
+                display: block;
+                overflow: visible;
+                padding: 8px 20px;
+                text-decoration: none;
+                white-space: nowrap;
+                color: #333333;
+                position: relative;
+                height: 36px;
+
+                &:hover {
+                    background-color: #eaeaea;
+                }
+            }
+
+            i {
+                padding-right: 8px;
+                color: #106ebe;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    &.isVisible-false {
+        display: none;
+    }
+}
+
+
+.Badge {
+    display: inline-block;
+    background: #f4f4f4;
+    padding: 3px 8px;
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+.DropdownMenu {
+    .li-dropdownMenuItem {
+        i {
+            color: #868282;
+            margin-right: 5px;
         }
     }
 }

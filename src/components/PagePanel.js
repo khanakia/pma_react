@@ -9,7 +9,7 @@ export default class Sidebar extends Component {
   }
   render() {
     return (
-		<div className={'container-fluid page-panel' + this.sidebarClass} id={this.props.id}>
+		<div className={'page-panel' + this.sidebarClass} id={this.props.id}>
 			{this.props.children}
 		</div>
     )

@@ -113,6 +113,7 @@ class TaskTitle extends Component {
         TaskHelper.updateStatus({id: item_id, status }).then((response) => {
             console.log(response)
             // this.fetchDataTag()
+            this.props.onTaskDataUpdate()
         })
     }
 

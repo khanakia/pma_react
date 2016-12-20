@@ -144,8 +144,8 @@ export function fetchProjectFilesBrowserFormList(project_id, extraParams={}) {
 }
 
 
-export function fetchComments(object_type, object_id) {
-    const request = CommentHelper.index(object_type, object_id);
+export function fetchComments(project_id, object_type, object_id) {
+    const request = CommentHelper.index(project_id, object_type, object_id);
     return {
         type: FETCH_COMMENTS,
         payload: request

@@ -59,6 +59,7 @@
     "jstree": "~3.3.2",
     "bootstrap-treeview": "~1.2.0",
     "jquery-file-download": "~1.4.4",
-    "fine-uploader": "^5.11.8"
+    "fine-uploader": "^5.11.8",
+    "office-ui-fabric": "office-ui-fabric-js#^2.6.1"
   }
 }

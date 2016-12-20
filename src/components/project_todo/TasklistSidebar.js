@@ -15,20 +15,28 @@ class TasklistSidebar extends Component {
         project_id : ''
     }
 
+    handleClick(e, link) {
+        e.preventDefault();
+        hashHistory.push(link);
+    }
+
+
     render() {
         // console.info("this.props", this.props.project_id)
         const data = this.props.data;
         const project_id = this.props.project_id;
         if (jQuery.isEmptyObject(data)) return false;
+
+        var that = this;
         return (
             <ul className="nav_project">
                 <li key="all_tasks">
-                    <Link activeClassName="active" to={"/projects/" + project_id + "/tasklists"}>All Tasks</Link>
+                    <a href="#" onClick={ (e) => this.handleClick(e, "/projects/" + project_id + "/tasklists")}>All Tasks</a>
                 </li>
                 {data.map(function(item){
                     return (
                         <li key={item.id}>
-                            <Link activeClassName="active" to={"/projects/" + project_id + "/tasklists/" + item.id}>{item.tasklist_title}</Link>
+                            <a href="#" onClick={(e) => that.handleClick(e, "/projects/" + project_id + "/tasklists/" + item.id)}>{item.tasklist_title}</a>
                         </li>
                     )
                 })}

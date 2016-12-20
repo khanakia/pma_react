@@ -44,7 +44,7 @@ class ProjectFiles extends Component {
  
 
     onFileItemsSelect(items) {
-        console.log("EEEEE", items)
+        // console.log("EEEEE", items)
     }
 
     componentDidUpdate() {
@@ -55,41 +55,6 @@ class ProjectFiles extends Component {
                 document.getElementById('childrenSidebar')
             );
     }
-
-
-    // renderList(items) {
-    //     return items.map((item) => {
-    //         if(this.checkCategoryExists(item.categories)==false) return;
-    //         return (
-    //             <li className="list-group-item" key={item.id}>
-
-    //                <div className="d-table w100">
-    //                     <div className="d-table-cell xs-d-block w40 xs-w100 valign-middle">
-    //                         <h4 className="list-group-item-heading">
-    //                             {item.id} 
-    //                             {   item.project_file_version_latest ?
-    //                                 <Link to={'projects/'+this.projectId+'/files/'+item.id}>{item.project_file_version_latest.file_displayname}</Link>
-    //                                 : ''
-    //                             }
-                                
-    //                         </h4>
-    //                     </div>
-                        
-    //                     <div className="d-table-cell xs-d-block w10 xs-w100 valign-middle">
-    //                         {this.renderCategoryBadges(item.categories)}
-    //                     </div>
-    //                     <div className="d-table-cell xs-d-block valign-middle text-right">
-    //                         <span className="icons-group light">
-    //                             <button className="btn btn-plain" title="Edit" onClick={(e)=> this.showFile(e, item)} ><i className="fa fa-eye"></i></button>
-    //                             <button className="btn btn-plain" title="Edit" onClick={(e)=> this.editFile(e, item)} ><i className="fa fa-pencil"></i></button>
-    //                             <button className="btn btn-plain" title="Edit" onClick={(e)=> this.deleteFile(e, item)} ><i className="fa fa-trash"></i></button>
-    //                         </span>
-    //                     </div>
-    //                 </div>
-    //             </li>
-    //         );
-    //     });
-    // }
 
     renderList(items) {
         if(!items) return false;
@@ -212,11 +177,11 @@ class ProjectFiles extends Component {
         
         var data = 'file_version_ids='+selectedFiles.join(',');
         ProjectFileHelper.downloadMultiple(data).then((response)=>{
-            
-            var url = API_URL+'/project_file/download_zip?id='+response.data.file_id+'&hash=' + response.data.file_hash;
-            window.location.href = url;
+            if(response.data.status=='OK') {
+                var url = API_URL+'/project_file/download_zip?id='+response.data.file_id+'&hash=' + response.data.file_hash;
+                window.location.href = url;
+            }
         })
-        // console.log(data)
     }
 
     deleteSelectedFiles(e) {

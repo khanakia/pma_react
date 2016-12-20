@@ -60,6 +60,10 @@ class CategoryForm extends Component {
               ReactDom.render(<CategoryForm popup_id={pid} data={data} categoryList={categoryList} onDataUpdate={onDataUpdate} />, document.getElementById(uniq));
               // console.log(pid);
               // setTimeout(() => jQuery('#'+pid).popup('hide'), 3000); 
+            },
+
+            onclose: function(e) {
+                ReactDom.unmountComponentAtNode(document.getElementById(uniq))
             }
         });
     }
@@ -108,6 +112,7 @@ class CategoryForm extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <div className="modal-header">
@@ -127,8 +132,14 @@ class CategoryForm extends Component {
 
                         <div className="form-group">
                             <label className="control-label">Select Parent</label>
-                            {/*<CategoryTree categoryList={this.props.categoryList} defaultValue={this.props.data.parent} onChange={this.onTreeChange.bind(this)} />*/}
-                            <CategoryTree2 showControls={false} allMessageLabel="Move to Root" categoryList={this.props.categoryList} selectedValue={this.props.data.parent_id} onItemClick={this.onTreeChange.bind(this)} />
+                            
+                            <CategoryTree2 
+                                showControls={false} 
+                                allMessageLabel="Move to Root" 
+                                onItemClick={this.onTreeChange.bind(this)} 
+                                selectedValue={this.props.data.parent_id} 
+                                project_id={this.props.data.project_id} 
+                                object_type={this.props.data.object_type} />
                         </div>
 
                     </div>

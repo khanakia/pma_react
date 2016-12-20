@@ -7,6 +7,8 @@ import TasklistHelper from '../helpers/helper_tasklist.js'
 import PopupHelper from '../helpers/helper_popup'
 
 import TagSelectorInput from './tag/TagSelectorInput'
+import TasklistSidebar from './project_todo/TasklistSidebar'
+
 class ProjectTasks extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +30,16 @@ class ProjectTasks extends Component {
         });
     }
 
+    componentDidUpdate() {
+        ReactDom.render(
+                <div>
+                    <h3>Tasklists</h3>
+                    <TasklistSidebar data={this.props.projectsTasklists} project_id={this.projectId} />
+                </div>,
+                document.getElementById('childrenSidebar')
+            );
+    }
+
 
     createTasklist(e) {
         PopupHelper.showTasklistForm({onDataUpdate:this.onTasklistDataUpdate.bind(this)})
@@ -39,6 +51,7 @@ class ProjectTasks extends Component {
 
 
     onTaskDataUpdate() {
+        this.props.fetchProjectTasklists(this.projectId);
         // this.props.fetchProjectFiles(this.projectId);   
     }
   

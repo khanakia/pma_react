@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import Sidebar from './Sidebar'
-import PagePanel from './PagePanel'
-// import OrganizationAdd from './OrganizationAdd'
-
 import OrgForm from './org/OrgForm'
-import DomainForm from './org/DomainSubdomainForm'
 
 import * as Helper from '../helpers'
 import PopupHelper from '../helpers/helper_popup'
 
 import { Auth, Util, OrgHelper } from '../helpers'
+
+import {Sidebar, PagePanel} from './'
+import {Badge, CommandBar, List, DropdownMenu} from '../fm'
 
 class OrganizationList extends Component {
     constructor(props, context) {
@@ -27,43 +25,22 @@ class OrganizationList extends Component {
         // Helper.Auth.updateCurrentOrg()
     }
 
-
-    editButton(org) {
-        // console.log(org.permissions.is_admin || org.created_by_user_id==Auth.getUserID());
-        // if(org.permissions.is_admin || org.created_by_user_id==Auth.getUserID()) {
-        if(org.permissions.org_can_update) {
-            return (
-                <span>
-                    <button className="btn btn-plain" title="Edit" onClick={(e)=> this.editOrg(org,e)} ><i className="fa fa-pencil"></i></button>
-                    <button className="btn btn-plain" title="Edit Domain" onClick={(e)=> this.addDomainInfo(org, e)}><i className="fa fa-link"></i></button>
-                </span>
-            )
-        }
-    }
-
-
     onDataUpdate(data) {
         console.log('onDataUpdate', data);
     }
 
-    editOrg(data, e) {
-        e.preventDefault();
+    editOrg(data) {
         PopupHelper.showOrgForm({data, is_new: false})
     }
 
-    addDomainInfo(data, e) {
-        DomainForm.showInPoup({data})
-    }
-
-    switchOrg(e, org_id) {
+    switchOrg(org_id) {
         OrgHelper.switchOrg(org_id).then((response) => {
             Auth.login(response.data.token)
             this.props.fetchCurrentOrg()
         });
     }
 
-    setDefault(e, org_id) {
-        e.preventDefault()
+    setDefault(org_id) {        
         OrgHelper.setDefault(org_id).then((response) => {
             // Auth.login(response.data.token)
             // this.props.fetchCurrentOrg()
@@ -72,8 +49,7 @@ class OrganizationList extends Component {
         
     }
 
-    leaveOrg(e, org_id) {
-        e.preventDefault()
+    leaveOrg(org_id) {
         OrgHelper.leaveOrg(org_id).then((response) => {
 
         Auth.login(response.data.token)
@@ -93,87 +69,112 @@ class OrganizationList extends Component {
         })
     }
 
-    renderPosts(orgs) {
+
+    renderTable(orgs) {
+        
         if(undefined===orgs) return false;
         return orgs.map((org) => {
+        
+            const dropdownMenuItems = [
+                {
+                    key: 'edit_org',
+                    value: 'Edit Organization',
+                    iconClass: 'fa fa-sitemap',
+                    isVisible : org.permissions.org_can_update,
+                    onClick: () => {
+                        this.editOrg(org)
+                    }
+                },
+                {
+                    key: 'leave_org',
+                    value: 'Leave Organization',
+                    iconClass: 'fa fa-gear',
+                    isVisible : (org.created_by_user_id!==this.props.current_user.id),
+                    onClick: () => {
+                        this.leaveOrg(org.id)
+                    }
+                },
+                {
+                    key: 'set_default',
+                    value: 'Set as Default',
+                    iconClass: 'fa fa-gear',
+                    isVisible : true,
+                    onClick: () => {
+                        this.setDefault(org.id)
+                    }
+                },
+                {
+                    key: 'set_current',
+                    value: 'Set as Current',
+                    iconClass: 'fa fa-gear',
+                    isVisible : true,
+                    onClick: () => {
+                        this.switchOrg(org.id)
+                    }
+                },
+                
+            ];
+
             return (
-                <li className="" key={org.id}>
-                    <div className="inner">
-                            <h4 className="list-group-item-heading mt30">
-                                {org.name}
-                                <div className="dropdown d-inline-block">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"><i className="fa fa-chevron-down"></i></a>
-                                    <ul className="dropdown-menu dropdown-menu-right">
-                                        
-                                        { org.permissions.org_can_update
-                                            ? <li><a href="#" onClick={(e)=> this.editOrg(org,e)}>Edit Organization</a></li>
-                                            : ''
-                                        }
-                                        { org.created_by_user_id!==this.props.current_user.id
-                                            ? <li><a href="#" onClick={(e)=> this.leaveOrg(e, org.id)}>Leave Organization</a></li>
-                                            : ''
-                                        }
-                                        <li><a href="#" onClick={(e)=> this.setDefault(e, org.id)}>Make Default</a></li>
+                <tr className="" key={org.id}>
+                    <td>
+                        {org.name}
+                    </td>
 
-                                    </ul>
-                                </div>
-                            </h4>
-                        
+                    <td>
                         <div className="badges">
-                                {Util.badgetOwner((org.created_by_user_id==Auth.getUserID()))}
-                                {Util.badgeIsAdmin(org.permissions.is_admin)}
-                                {Util.badgetDefault(org, this.props.current_user)}
-                                {Util.badgetPersonal(org)}
+                            <Badge title="Owner" isVisible={org.created_by_user_id==Auth.getUserID()} />
+                            <Badge title="Admin" isVisible={org.permissions.is_admin} />
+                            <Badge title="Default" isVisible={org.id==this.props.current_user.org_default_id} />
+                            <Badge title="Personal" isVisible={org.created_by_user_id==Auth.getUserID() && org.is_personal} />
                         </div>
-                        {/*<div className="my20">
-                                                    <span className="icons-group light">
-                                                        {this.editButton(org)}
-                                                        <a href={Helper.Org.getLoginURL(org)} className="btn btn-plain" title="Login in to this Organization"><i className="fa fa-sign-in"></i></a>
-                                                    </span>
-                                                </div>*/}
-
-                        <div className="mt30">
-                            <button type="button" className="btn btn-blue" onClick={(e) => this.switchOrg(e, org.id)}>Switch Organization</button>
-                        </div>
-                    </div>
-                </li>
+                    </td>
+                    <td className="w2">
+                        <DropdownMenu items={dropdownMenuItems} />
+                    </td>
+                </tr>    
             );
         });
     }
 
 
+
     render() {
         const data = this.props.orgsList;
+        const commandBarItems = [
+            {
+                key: 'btn1',
+                value: 'New',
+                iconClass: 'fa fa-plus',
+                isVisible : true,
+                onClick: function() {
+                    PopupHelper.showOrgForm({})
+                }
+            },
+        ];
 
-        
         return (
             <div>
+            
                 <PagePanel>
-                    <div className="control-toolbar1">
-                        <div className="left">
-                            <div className="filter-header-input-wrap">
-                                <input placeholder="Find a organization" className="filter-header-input" defaultValue="" onChange={(e)=>this.filterChange(e)}/>
-                            </div>
-                        </div>
-                        <div className="middle">
-                        </div>
-                        <div className="right">
-                            <span className="pull-right">
-                                <span className="col mr10">
-                                    
-                                </span>
-                                <span className="col icons-group">
-                                    <button className="btn btn-green-bordered" onClick={()=> PopupHelper.showOrgForm({})}><i className="fa fa-plus"></i> Create new organization</button>
-                                </span>
-                            </span>    
-                        </div>
-                    </div>
-                    <div className="mt20">
-                        
+                    
+                    <CommandBar items={commandBarItems} />
 
-                        <ul className="list-group-grid">
-                            {this.renderPosts(data)}
-                        </ul>
+                    <div className="mt20 container-fluid">
+                        <h2 className="h2-light">Organizations</h2>
+                        <table className="table1 table-odrive" >
+                            <thead>
+                            <tr>
+                                <th>Organization</th>
+                                <th>Tags</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.renderTable(data)}
+                            </tbody>
+                        </table>
+                       
                     </div>
 
 

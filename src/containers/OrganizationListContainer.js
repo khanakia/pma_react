@@ -4,7 +4,7 @@ import {action_appdata} from '../actions';
 const {fetchCurrentOrg, fetchCurrentUser} = action_appdata
 
 
-import OrganizationList from '../components/OrganizationList';
+import {OrganizationList} from '../components';
 
 import OrgHelper from '../helpers/helper_org'
 

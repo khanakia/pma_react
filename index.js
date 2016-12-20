@@ -17,10 +17,10 @@ import LayoutFindMyOrg from './src/containers/LayoutFindMyOrg'
 import LayoutProject from './src/containers/LayoutProject'
 
 import DashboardContainer from './src/containers/DashboardContainer'
-import OrganizationList from './src/containers/OrganizationListContainer'
+// import OrganizationList from './src/containers/OrganizationListContainer'
 import OrganizationUsers from './src/containers/OrganizationUsersContainer'
 
-import OrganizationCompanies from './src/containers/OrganizationCompaniesContainer'
+// import OrganizationCompanies from './src/containers/OrganizationCompaniesContainer'
 import TaskList from './src/containers/TaskListContainer'
 import TagList from './src/containers/TagListContainer'
 import OrganizationGeneral from './src/containers/OrganizationGeneralContainer'
@@ -66,6 +66,12 @@ import Localstore from './src/helpers/localstore.js'
 import {language} from './src/lang/index.js';
 window.lang = language.en;
 
+
+import {
+	OrganizationListContainer,
+	CompanyOverviewContainer
+} from './src/containers'
+
 // If user is on Root URL then render Find My Organization page
 
 	render((
@@ -78,8 +84,8 @@ window.lang = language.en;
 
 		    <Route path="/" component={RequireAuth(Layout)}>
 		       <Route path="dashboard" component={DashboardContainer} />
-		       <Route path="organization" component={OrganizationList} />
-		       <Route path="organization/companies" component={OrganizationCompanies} />
+		       <Route path="organization" component={OrganizationListContainer} />
+		       <Route path="organization/companies" component={CompanyOverviewContainer} />
 		       <Route path="organization/peoples" component={OrganizationUsers} />
                <Route path="settings/tags" component={TagList} />
                <Route path="settings/logo" component={CompaniesLogos} />

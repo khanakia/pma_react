@@ -28,6 +28,10 @@ class ProjectPeople extends Component {
 
     }
 
+    componentDidUpdate() {
+        ReactDom.unmountComponentAtNode(document.getElementById('childrenSidebar'))
+    }
+
     editProject(data, e) {
         ProjectForm.showInPoup({data})
     }
@@ -61,6 +65,7 @@ class ProjectPeople extends Component {
         if(undefined==projectusers || jQuery.isEmptyObject(projectusers)) return;
         console.info(projectusers);
         return projectusers.map((projectuser) => {
+            if(null==projectuser.user) return;
             return (
                 <li className="list-group-item" key={projectuser.id}>
                     <div className="w100">

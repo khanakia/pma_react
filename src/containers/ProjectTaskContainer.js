@@ -1,12 +1,16 @@
 import { connect } from 'react-redux'
-import { fetchProjectTask} from '../actions/action_project';
+import { fetchProjectTask, fetchProjectUsers, fetchComments } from '../actions/action_project';
 
 import ProjectTask from '../components/ProjectTask';
 
 const mapStateToProps = (state) => {
     return {
+        state : state,
+        current_org: state.appdata.current_org,
+        current_user: state.appdata.current_user,
         projectTask: state.project.task,
-        state : state
+        projectUsers : state.project.users,
+        commentsList : state.project.comments
     };
 }
 
@@ -16,6 +20,14 @@ const mapDispatchToProps = (dispatch) => {
         fetchProjectTask: (id) => {
             dispatch(fetchProjectTask(id)).then((response) => {
             });
+        },
+
+        fetchProjectUsers: (project_id) => {
+            dispatch(fetchProjectUsers(project_id));
+        },
+
+        fetchComments: (project_id, object_type, object_id) => {
+            dispatch(fetchComments(project_id, object_type, object_id))
         }
     }
 }

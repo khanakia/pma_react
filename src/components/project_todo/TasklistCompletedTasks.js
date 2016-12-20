@@ -17,7 +17,9 @@ class TasklistCompletedTasks extends Component {
         defaultValue : '',
         className : '',
         
-        data : []
+        data : [],
+
+        onTaskDataUpdate: function(task) {},
     }
 
     componentWillMount() {
@@ -25,8 +27,6 @@ class TasklistCompletedTasks extends Component {
     }
 
     componentDidMount() {
-     
-
        
     }
 
@@ -47,7 +47,7 @@ class TasklistCompletedTasks extends Component {
             // console.info(item.id)
             if(item.status!=='completed') return false;
             return (
-                <TaskTitle key={item.id} data={item} />
+                <TaskTitle key={item.id} data={item} onTaskDataUpdate={this.props.onTaskDataUpdate.bind(this)} />
             );
         });
     }

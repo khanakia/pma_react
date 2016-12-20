@@ -104,7 +104,7 @@ class CategoryTree2 extends Component {
         if(undefined==items) return false;
         return items.map((item) => {
             return (
-                <li className={' ' + 'level_'+level +' ' +this.isSelected(item) + ' '+ this.hasChildrens(item)} key={item.id} data-id={item.id} data-level={level} data-json={JSON.stringify(item)}>
+                <li className={' ' + 'level_'+level +' ' +this.isSelected(item) + ' '+ this.hasChildrens(item)} key={item.id} data-id={item.id} data-level={level} data-json={JSON.stringify(item)} data-name={item.category_name}>
                     <a href="#" onClick={(e)=>this.onItemClick(e, item)}>{item.category_name}</a>
                     {this.renderUl(item.children, level+1)}
                 </li>
@@ -185,20 +185,21 @@ class CategoryTree2 extends Component {
 
     editCategory(e) {
         var $tree = $(this.refs.category_list_tree);
-        var data = $tree.find("li.selected").data("json");
+        // var data = $tree.find("li.selected").data("json");
 
-        console.log(data)
+        var data = (jQuery.parseJSON($tree.find("li.selected").attr("data-json")))  
 
         
         CategoryForm.showInPoup({data, categoryList:this.props.categoryList,  onDataUpdate:this.props.onUpdated})
     }
 
     createCategory(e) {
+        // console.log(this.getTree());
         var data = {
             project_id : this.props.project_id,
             object_type : this.props.object_type
         }
-        CategoryForm.showInPoup({data:data, categoryList:this.props.categoryList,  onDataUpdate:this.props.onUpdated})
+        CategoryForm.showInPoup({data:data, categoryList:this.getTree(),  onDataUpdate:this.props.onUpdated})
     }
 
 

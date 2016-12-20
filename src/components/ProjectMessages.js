@@ -36,7 +36,8 @@ class ProjectMessages extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchProjectMessages(this.projectId);
+        this.props.fetchProjectMessages(this.props.params.projectId);
+        this.props.fetchProjectUsers(this.props.params.projectId)
     }
 
     componentDidMount() {
@@ -70,27 +71,34 @@ class ProjectMessages extends Component {
     }
 
 
-    createMessae(e) {
+    createMessage(e) {
         e.preventDefault()
         // const href = 'projects/'+this.projectId+'/messages/create'
         // hashHistory.push(href)
-        PopupHelper.showProjectMessageForm({onDataUpdate:this.onDataUpdate.bind(this)})
+        PopupHelper.showProjectMessageForm({
+            project_id : this.props.params.projectId,
+            projectUsers : this.props.projectUsers,
+            onMessageUpdate:this.onMessageUpdate.bind(this)
+        })
     }
 
     editMessage(e, data) {
         e.preventDefault()
-        // const href = 'projects/'+this.projectId+'/messages/create'
-        // hashHistory.push(href)
-        console.log("datadata", data)
-        PopupHelper.showProjectMessageForm({data, is_new: false, onDataUpdate:this.onDataUpdate.bind(this)})
+        PopupHelper.showProjectMessageForm({ 
+            project_id: this.props.params.projectId,
+            id: data.id,
+            message_title: data.message_title,
+            message_body: data.message_body, 
+            projectUsers: this.props.projectUsers,
+            selectedUsers: data.notify_users,
+            onMessageUpdate: this.onMessageUpdate.bind(this),
+            is_new: false, 
+        })
     }
 
-    onDataUpdate() {
-
+    onMessageUpdate() {
+        this.props.fetchProjectMessages(this.props.params.projectId);
     }
-
-    
-
 
     showMessae(e, item) {
         e.preventDefault()
@@ -184,6 +192,8 @@ class ProjectMessages extends Component {
     onTreeItemUpdated(data) {
         console.log("updateddata", data)
         this.props.fetchProjectMessages(this.projectId);
+
+        this.props.fetchCategoriesTypeMessage(this.projectId)
     }
 
 
@@ -396,7 +406,7 @@ class ProjectMessages extends Component {
                                 
                             </span>
                             <span className="col icons-group">
-                                <button className="btn btn-green-bordered" onClick={(e)=> this.createMessae(e)}><i className="fa fa-plus"></i> Post new message</button>
+                                <button className="btn btn-green-bordered" onClick={(e)=> this.createMessage(e)}><i className="fa fa-plus"></i> Post new message</button>
                                 
                             </span>
                         </span>    

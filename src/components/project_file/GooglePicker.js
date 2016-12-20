@@ -53,12 +53,18 @@ class GooglePicker extends Component {
         }.bind(this))
 
         function onAuthApiLoad() {
-          window.gapi.auth.authorize({
-                  'client_id': google_clientId,
-                  'scope': scope,
-                  'immediate': false
-              },
-              handleAuthResult);
+          
+          var token = window.gapi.auth.getToken();
+          
+          if (!token) {
+            
+            window.gapi.auth.authorize({
+                    'client_id': google_clientId,
+                    'scope': scope,
+                    'immediate': false
+                },
+                handleAuthResult);
+          }
         }
 
         function onPickerApiLoad() {
@@ -75,6 +81,7 @@ class GooglePicker extends Component {
 
         // Create and render a Picker object for picking user Photos.
         function createPicker() {
+          
           if (pickerApiLoaded && oauthToken) {
               var view = new google.picker.View(google.picker.ViewId.DOCS);
               view.setMimeTypes("image/png,image/jpeg,image/jpg");

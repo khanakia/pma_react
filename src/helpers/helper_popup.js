@@ -23,9 +23,11 @@ import ProjectFileViewVersions from '../components/project_file/ProjectFileViewV
 import ProjectFilePrviewModal from '../components/project_file/ProjectFilePrviewModal'
 
 
-import CommentForm from '../components/project/CommentForm'
+import CommentForm from '../components/stateless/CommentForm'
 
-import ProjectMessageForm from '../components/project/ProjectMessageForm'
+// import ProjectMessageForm from '../components/project/ProjectMessageForm'
+import ProjectMessageForm from '../components/stateless/ProjectMessageForm'
+
 
 import TasklistForm from '../components/project_todo/TasklistForm'
 import TaskForm from '../components/project_todo/TaskForm'

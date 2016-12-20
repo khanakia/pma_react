@@ -123,7 +123,7 @@ class TasklistItem extends Component {
 
                     {
                         data.is_template==false 
-                        ? <TasklistCompletedTasks data={data.tasks} />
+                        ? <TasklistCompletedTasks data={data.tasks} onTaskDataUpdate={this.props.onTaskDataUpdate.bind(this)} />
                         : ''
                     }
                     

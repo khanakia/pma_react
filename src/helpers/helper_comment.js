@@ -6,13 +6,13 @@ export default class CommentHelper {
 		
 	}
 	
-	static index(object_type, object_id) {
+	static index(project_id,object_type, object_id) {
         return axios({
             method: 'get',
             url: API_URL_COMMENT,
             headers: Auth.header(),
             params: {
-                // project_id : project_id,
+                project_id : project_id,
                 object_type : object_type,
                 object_id : object_id
             }

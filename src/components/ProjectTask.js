@@ -7,8 +7,11 @@ import { OBJECT_TYPE_TASK } from '../config.js'
 
 import TaskItem from './project_todo/TaskItem'
 import TaskForm from './project_todo/TaskForm'
-import CommentList from './project/CommentList'
-import CommentForm from './project/CommentForm'
+// import CommentList from './project/CommentList'
+// import CommentForm from './project/CommentForm'
+
+import CommentForm from './stateless/CommentForm'
+import CommentList from './stateless/CommentList'
 
 class ProjectTask extends Component {
     constructor(props, context) {
@@ -18,6 +21,8 @@ class ProjectTask extends Component {
 
     componentWillMount() {
        this.props.fetchProjectTask(this.props.params.taskId);
+       this.props.fetchProjectUsers(this.props.params.projectId)
+       this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_TASK, this.props.params.taskId)
        // console.info("Mounted")
     }
 
@@ -42,7 +47,13 @@ class ProjectTask extends Component {
 
     }
 
- 
+    onCommentUpdate() {
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_TASK, this.props.params.taskId)
+    }
+
+    onCommentDelete() {
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_TASK, this.props.params.taskId)
+    }
 
 
     render() {
@@ -74,8 +85,26 @@ class ProjectTask extends Component {
                <TaskItem data={data} className="root" is_pageSingleTask={true} showCompleted={true}/>
 
                <div className="section_comments">
-                    <CommentList object_type={OBJECT_TYPE_TASK} object_id={taskId} />
-                    <CommentForm object_type={OBJECT_TYPE_TASK} object_id={taskId} />
+                    {/*<CommentList object_type={OBJECT_TYPE_TASK} object_id={taskId} />*/}
+                    {/*<CommentForm object_type={OBJECT_TYPE_TASK} object_id={taskId} />*/}
+
+                    <CommentList 
+                        commentsList = {this.props.commentsList}
+                        project_id={this.props.params.projectId} 
+                        projectUsers={this.props.projectUsers}
+                        profile_image_url={this.props.current_user.profile_image_url}
+                        onCommentDelete={() => this.onCommentDelete()}
+                        onCommentUpdate={() => this.onCommentUpdate()}
+                        object_type={OBJECT_TYPE_TASK} 
+                        object_id={taskId} />
+
+                    <CommentForm
+                        project_id={this.props.params.projectId} 
+                        projectUsers={this.props.projectUsers}
+                        onCommentUpdate={() => this.onCommentUpdate()}
+                        profile_image_url={this.props.current_user.profile_image_url}
+                        object_type={OBJECT_TYPE_TASK} 
+                        object_id={taskId} />
                 </div>
             </div>
 

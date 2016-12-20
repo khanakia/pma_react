@@ -4009,8 +4009,8 @@ tbody.collapse.in {
       color: #ccc; }
 
 .navbar-inverse {
-  background-color: #3498db;
-  border-color: #217dbb; }
+  background-color: #444;
+  border-color: #2b2b2b; }
   .navbar-inverse .navbar-brand {
     color: #fff; }
     .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
@@ -4025,7 +4025,7 @@ tbody.collapse.in {
       background-color: transparent; }
   .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     color: #fff;
-    background-color: #217dbb; }
+    background-color: #2b2b2b; }
   .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
     color: #444;
     background-color: transparent; }
@@ -4037,15 +4037,15 @@ tbody.collapse.in {
       background-color: #fff; }
   .navbar-inverse .navbar-collapse,
   .navbar-inverse .navbar-form {
-    border-color: #2386c8; }
+    border-color: #323232; }
   .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    background-color: #217dbb;
+    background-color: #2b2b2b;
     color: #fff; }
   @media (max-width: 767px) {
     .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-      border-color: #217dbb; }
+      border-color: #2b2b2b; }
     .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-      background-color: #217dbb; }
+      background-color: #2b2b2b; }
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
       color: #fff; }
       .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4053,7 +4053,7 @@ tbody.collapse.in {
         background-color: transparent; }
     .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
       color: #fff;
-      background-color: #217dbb; }
+      background-color: #2b2b2b; }
     .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
       color: #444;
       background-color: transparent; } }
@@ -5885,14 +5885,16 @@ a:hover {
 
 .btn-plain,
 .btn-plain:link,
-.btn-plain:hover,
 .btn-plain:focus,
 .btn-plain:active {
   background: none;
   text-decoration: none;
   outline: none;
-  padding: 0;
-  box-shadow: none; }
+  box-shadow: none;
+  padding: 0px 10px; }
+
+.btn-plain:hover {
+  background: #f4f4f4; }
 
 .select-menu {
   position: relative;
@@ -5927,8 +5929,10 @@ a:hover {
 
 .bootstrap-tagsinput-widthfull .bootstrap-tagsinput {
   width: 100%;
+  height: auto;
   box-shadow: none;
-  border-radius: 0; }
+  border-radius: 0;
+  padding: 0; }
 
 .ui-state-highlight {
   height: 30px !important;
@@ -6062,7 +6066,7 @@ a:hover {
     color: #dc1414; }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding-bottom: 150px; }
 
 .label-skyblue {
@@ -6152,9 +6156,13 @@ body {
   .icons-group.light i:hover {
     color: #3aa3e3; }
 
-.bootstrap-tagsinput input {
-  width: 100%;
-  border: none; }
+.bootstrap-tagsinput {
+  min-width: 200px; }
+  .bootstrap-tagsinput input {
+    width: 200px;
+    height: auto;
+    padding: 0;
+    border: none; }
 
 .avatar {
   width: 50px;
@@ -6734,9 +6742,10 @@ body {
     margin-right: 10px; }
 
 header {
-  -webkit-box-shadow: 0px 5px 15px 0px #c5c5c5;
-  -moz-box-shadow: 0px 5px 15px 0px #c5c5c5;
-  box-shadow: 0px 5px 15px 0px #c5c5c5;
+  /* -webkit-box-shadow: 0px 5px 15px 0px #c5c5c5;
+   -moz-box-shadow: 0px 5px 15px 0px #c5c5c5;
+   box-shadow: 0px 5px 15px 0px #c5c5c5;
+   */
   position: fixed;
   top: 0;
   width: 100%;
@@ -6767,7 +6776,7 @@ header {
 .page-panel {
   width: 100%;
   margin: 0 auto;
-  padding-top: 75px; }
+  padding-top: 52px; }
   .page-panel.has-sidebar {
     padding-left: 300px;
     padding-right: 15px; }
@@ -6853,5 +6862,107 @@ header {
     margin-top: 125px;
     text-align: right;
     background-color: transparent; }
+
+.h2-light {
+  font-size: 24px;
+  font-weight: 300; }
+
+.table-odrive {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px; }
+  .table-odrive tbody tr:hover {
+    background-color: #eaeaea; }
+  .table-odrive thead {
+    border-bottom: 1px solid #eaeaea; }
+  .table-odrive th {
+    padding: 8px;
+    font-size: 11px;
+    font-weight: normal; }
+  .table-odrive td {
+    border: none;
+    padding: 8px; }
+
+.CommandBar {
+  background-color: #f4f4f4; }
+  .CommandBar:before {
+    display: table;
+    content: " "; }
+  .CommandBar:after {
+    display: table;
+    content: " ";
+    clear: both; }
+  .CommandBar .itemsArea {
+    float: left; }
+  .CommandBar .farItemsArea {
+    float: right; }
+
+.CommandBarItem {
+  display: inline-block;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #333333;
+  height: 40px;
+  box-sizing: border-box;
+  outline: 0;
+  vertical-align: top; }
+  .CommandBarItem button {
+    background: none;
+    border: none;
+    display: table;
+    padding: 10px;
+    color: #333333;
+    outline: none; }
+    .CommandBarItem button i {
+      padding-right: 8px;
+      color: #106ebe;
+      display: inline-block;
+      vertical-align: middle; }
+    .CommandBarItem button span {
+      display: inline-block;
+      vertical-align: middle; }
+  .CommandBarItem:hover {
+    background-color: #eaeaea; }
+  .CommandBarItem .subMenu {
+    list-style: none;
+    padding: 0;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+    min-width: 150px;
+    position: absolute;
+    display: none; }
+    .CommandBarItem .subMenu li a {
+      background-color: #ffffff;
+      cursor: pointer;
+      display: block;
+      overflow: visible;
+      padding: 8px 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      color: #333333;
+      position: relative;
+      height: 36px; }
+      .CommandBarItem .subMenu li a:hover {
+        background-color: #eaeaea; }
+    .CommandBarItem .subMenu li i {
+      padding-right: 8px;
+      color: #106ebe;
+      display: inline-block;
+      vertical-align: middle; }
+  .CommandBarItem.isVisible-false {
+    display: none; }
+
+.Badge {
+  display: inline-block;
+  background: #f4f4f4;
+  padding: 3px 8px;
+  font-size: 12px;
+  margin: 0 5px; }
+
+.DropdownMenu .li-dropdownMenuItem i {
+  color: #868282;
+  margin-right: 5px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -7,9 +7,10 @@ import { OBJECT_TYPE_MESSAGE } from '../config.js'
 import { Auth, ProjectMessageHelper } from '../helpers'
 import PopupHelper from '../helpers/helper_popup'
 
-import CommentList from './project/CommentList'
-import CommentForm from './project/CommentForm'
-
+// import CommentList from './project/CommentList'
+// import CommentForm from './project/CommentForm'
+import CommentForm from './stateless/CommentForm'
+import CommentList from './stateless/CommentList'
 
 class ProjectMessage extends Component {
     constructor(props) {
@@ -22,25 +23,56 @@ class ProjectMessage extends Component {
 
     componentWillMount() {
         this.props.fetchProjectMessage(this.messageId)
+        this.props.fetchProjectUsers(this.props.params.projectId)
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_MESSAGE, this.props.params.messageId)
+        this.props.fetchCategoriesTypeMessage(this.props.params.projectId)
     }
 
     componentDidUpdate() {
        
     }
 
+
     editMessage(e, data) {
         e.preventDefault()
-        PopupHelper.showProjectMessageForm({data, is_new: false, onDataUpdate:this.onDataUpdate.bind(this)})
+
+        console.log(data)
+        
+        PopupHelper.showProjectMessageForm({ 
+            project_id: this.props.params.projectId,
+            id: data.id,
+            message_title: data.message_title,
+            message_body: data.message_body, 
+            projectUsers: this.props.projectUsers,
+            selectedUsers: data.notify_users,
+            categoryList: this.props.categoryList ,
+            selectedCategories: data.categories,
+            onMessageUpdate: this.onMessageUpdate.bind(this),
+            is_new: false, 
+        })
     }
    
-    onDataUpdate() {
-        this.props.fetchProjectMessage(this.messageId)
+    onMessageUpdate() {
+        this.props.fetchProjectMessage(this.props.params.messageId);
+        this.props.fetchProjectUsers(this.props.params.projectId)
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_MESSAGE, this.props.params.messageId)
+        this.props.fetchCategoriesTypeMessage(this.props.params.projectId)
     }
 
+    onCommentUpdate() {
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_MESSAGE, this.props.params.messageId)
+    }
+
+    onCommentDelete() {
+        this.props.fetchComments(this.props.params.projectId, OBJECT_TYPE_MESSAGE, this.props.params.messageId)
+    }
+
+
     render() {
-        if (jQuery.isEmptyObject(this.props.projectMessagesCurrent)) return false;
-        const data = this.props.projectMessagesCurrent;
+        const data = this.props.projectMessage;
+        if (jQuery.isEmptyObject(data)) return false;
         const {created_by_user} = data;
+        const messageId = this.props.params.messageId;
 
         return (
             <div>
@@ -90,8 +122,25 @@ class ProjectMessage extends Component {
                 </div>
 
                 <div className="section_comments">
-                    <CommentList object_type={OBJECT_TYPE_MESSAGE} object_id={data.id} />
-                    <CommentForm object_type={OBJECT_TYPE_MESSAGE} object_id={data.id} />
+                    {/*<CommentList object_type={OBJECT_TYPE_MESSAGE} object_id={data.id} />
+                                        <CommentForm object_type={OBJECT_TYPE_MESSAGE} object_id={data.id} />*/}
+                    <CommentList 
+                        commentsList = {this.props.commentsList}
+                        project_id={this.props.params.projectId} 
+                        projectUsers={this.props.projectUsers}
+                        profile_image_url={this.props.current_user.profile_image_url}
+                        onCommentDelete={() => this.onCommentDelete()}
+                        onCommentUpdate={() => this.onCommentUpdate()}
+                        object_type={OBJECT_TYPE_MESSAGE} 
+                        object_id={messageId} />
+
+                    <CommentForm
+                        project_id={this.props.params.projectId} 
+                        projectUsers={this.props.projectUsers}
+                        onCommentUpdate={() => this.onCommentUpdate()}
+                        profile_image_url={this.props.current_user.profile_image_url}
+                        object_type={OBJECT_TYPE_MESSAGE} 
+                        object_id={messageId} />
                 </div>
 
             </div>

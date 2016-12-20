@@ -11,7 +11,7 @@ import { fetchTags} from '../actions/action_tag';
 import Sidebar from '../components/Sidebar'
 import PagePanel from '../components/PagePanel'
 
-import TasklistSidebar from '../components/project_todo/TasklistSidebar'
+// import TasklistSidebar from '../components/project_todo/TasklistSidebar'
 
 class LayoutProjectComponent extends Component {
     
@@ -42,10 +42,7 @@ class LayoutProjectComponent extends Component {
                         }
                     </ul>
 
-                    <div className="box-info">
-                        <h3>Tasklist</h3>
-                        <TasklistSidebar data={this.props.projectsTasklists} project_id={this.props.params.projectId} />
-                    </div>
+                   
 
                   <div id="childrenSidebar">
 
